@@ -19,16 +19,23 @@ FILE* readFile(char *filename){
 }
 
 //function to remove trailing whitespaces from the provided string
-void trimTrailingSpaces(char* word) {
+void trimSpaces(char* word) {
     //char pointer looking at the char in word immediately preceeding the null terminator
     char* end = word+(strlen(word)-1);
-    //while the last regular char in word is a space
+    //keep moving end back until it's on a non-space char
     while(isspace(*end)) {
-        //set the last char to be the new end of the word
-        *end='\0';
-        //and move end so it is again looking at the last char in word
         end--;
     }
+    //then terminate word on the char after end
+    *(end+1)='\0';
+
+    //this while loop is essentially the same as above but reversed
+    char* start=word;
+    while(isspace(*start)) {
+        start++;
+    }
+    //and instead of ending the word, once we find where the actual chars start we just copy the string starting there into word
+    strcpy(word,start);
     return;
 }
 
@@ -42,6 +49,7 @@ int main(int argc, char** argv){
 
     //create Player structs based on input file
     char line[MAX_LINE_LENGTH];
+    
 
     //create and shuffle a Deck
 
