@@ -43,7 +43,7 @@ Player* makeFirstPlayer(char* n) {
 
 //function to free a Player struct
 //takes a pointer to the Player pointer you actually want to free and set to NULL
-void freePlayer(Player** dp) {
+Player* freePlayer(Player** dp) {
     //creates a variable of the actual Player pointer for ease of use
     Player* p = *dp;
     //all the actual Card structs will be freed when the main deck is freed, so I don't need to do that here
@@ -53,11 +53,14 @@ void freePlayer(Player** dp) {
     }
     free(p->draws);
     (p->draws)=NULL;
+    //save p->nextPlayer to be returned so that that Player can also be freed
+    Player* np = p->nextPlayer;
+    (p->nextPlayer)=NULL;
     //finally, free the Player pointer and set it to NULL
     free(*dp);
     (*dp)=NULL;
 
-    return;
+    return np;
 }
 
 //function to add the Card pointed to by c to p->draws, expanding the latter as needed

@@ -24,7 +24,7 @@ Player* makeFirstPlayer(char* n);
 
 //function to free a Player struct
 //takes a pointer to the Player pointer you actually want to free and set to NULL
-void freePlayer(Player** p);
+Player* freePlayer(Player** p);
 
 //function to add the Card pointed to by c to p->draws, expanding the latter as needed
 int drawCard(Player* p,struct Card* c);
