@@ -79,7 +79,15 @@ Card* makeCard(int s,int r) {
 void freeCard(Card** p) {
     free(*p);
     (*p)=NULL;
+    return;
 }
 
-//function to print a card
-void printCard(Card* c);
+//function to print a card's name in blue if it's spades or clubs and red if it's hearts or diamonds
+void printCard(Card* c) {
+    if((c->suit)%2==0) {
+        printf(C_RED "%s" C_RESET,c->name);
+    } else {
+        printf(C_BLUE "%s" C_RESET,c->name);
+    }
+    return;
+}

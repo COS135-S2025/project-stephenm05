@@ -2,6 +2,10 @@
 #ifndef CARD_H
 #define CARD_H
 
+#define C_RED     "\x1b[31m"
+#define C_BLUE    "\x1b[34m"
+#define C_RESET   "\x1b[0m"
+
 //enum to store the numerical value of the 13 possible card ranks
 typedef enum Rank{
     ACE=1,
