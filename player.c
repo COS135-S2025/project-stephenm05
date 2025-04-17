@@ -15,6 +15,8 @@ Player* makePlayer(char* n,Player* np) {
     (p->wrongGuesses)=0;
     (p->drawCount)=0;
     (p->maxDraws)=1;
+    //set the name member to the one specified
+    strcpy(p->name,n);
     //indicate the address of the Player who goes next
     (p->nextPlayer)=np;
     //allocate space for the Card* array
@@ -31,6 +33,8 @@ Player* makeFirstPlayer(char* n) {
     (p->wrongGuesses)=0;
     (p->drawCount)=0;
     (p->maxDraws)=1;
+    //set the name member to the one specified
+    strcpy(p->name,n);
     //allocate space for the Card* array
     (p->draws)=malloc(sizeof(Card*)*(p->maxDraws));
     //return a pointer to the Player created so the user can access it
