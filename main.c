@@ -93,6 +93,7 @@ int main(int argc, char** argv){
     int isRight = 0;
     //runs while there are undrawn cards in the deck
     while(drawPointer<((deck->cardOrder)+DECK_SIZE)) {
+
         //vars to reduce the amount of member accessing and dereferencing needed
         Card* nextCard = *drawPointer;
         Card** draws = (playerPointer->draws);
@@ -101,6 +102,8 @@ int main(int argc, char** argv){
         (drawCount > 1) ? (int tcbr = draws[drawCount-2]->rank):; //two cards back's rank, only initialized if there are two previous cards
         int lowBorder, highBorder;
         (drawCount > 1) ? ((lcr>tcbr) ? (highBorder=lcr;lowBorder=tcbr):(highBorder=tcbr;lowBorder=lcr)):;
+
+        
         //ask the appropriate question to the Player pointed to by playerPointer
         switch(qType) {
             //red or black?
@@ -115,7 +118,7 @@ int main(int argc, char** argv){
                 break;
             //higher or lower?
             case 1:
-                printf("%s, higher (0) or lower (1)?\n",(playerPointer->name));
+                printf("%s, higher (0) or lower (1)?\n",playerPointer->name);
                 printf("Your last card was the ");
                 printCard(draws[drawCount-1]);
                 printf(".\n");
@@ -127,7 +130,7 @@ int main(int argc, char** argv){
                 break;
             //inside or outside?
             case 2:
-                printf("%s, inside (0) or outside (1)?\n",(playerPointer->name));
+                printf("%s, inside (0) or outside (1)?\n",playerPointer->name);
                 printf("Your last two cards were the ");
                 printCard(draws[drawCount-1]);
                 printf(" and the ");
@@ -141,6 +144,11 @@ int main(int argc, char** argv){
                 break;
             //suit?
             case 3:
+                printf("%s, clubs (0), diamonds (1), spades (2), or hearts (3)?\n",playerPointer->name);
+                fgets(line,MAX_LINE_LENGTH,stdin);
+                if((atoi(line)+1)==(nextCard->suit)) {
+                    isRight = 1;
+                } else {isRight=0;}
                 break;
         }
     }
