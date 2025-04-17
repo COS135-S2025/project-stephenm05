@@ -115,6 +115,15 @@ int main(int argc, char** argv){
                 break;
             //higher or lower?
             case 1:
+                printf("%s, higher (0) or lower (1)?\n",(playerPointer->name));
+                printf("Your last card was the ");
+                printCard(draws[drawCount-1]);
+                printf(".\n");
+                fgets(line,MAX_LINE_LENGTH,stdin);
+                if(((nextCard->rank)>=lcr && atoi(line)==0) || ((nextCard->rank)<=lcr && atoi(line)==1)) {
+                    isRight=1;
+                } else {
+                    isRight=0; }
                 break;
             //inside or outside?
             case 2:
