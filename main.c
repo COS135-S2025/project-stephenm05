@@ -127,6 +127,17 @@ int main(int argc, char** argv){
                 break;
             //inside or outside?
             case 2:
+                printf("%s, inside (0) or outside (1)?\n",(playerPointer->name));
+                printf("Your last two cards were the ");
+                printCard(draws[drawCount-1]);
+                printf(" and the ");
+                printCard(draws[drawCount-2]);
+                printf(".\n");
+                fgets(line,MAX_LINE_LENGTH,stdin);
+                if((atoi(line)==0 && (nextCard->rank)<=highBorder && (nextCard->rank)>=lowBorder) || (atoi(line)==1 && ((nextCard->rank)>=highBorder || (nextCard->rank)<=lowBorder))) {
+                    isRight = 1;
+                } else {
+                    isRight = 0; }
                 break;
             //suit?
             case 3:
