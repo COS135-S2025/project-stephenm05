@@ -75,7 +75,11 @@ Card* makeCard(int s,int r) {
 }
 
 //function to free a Card struct
-void freeCard(Card** p);
+//takes a pointer to the Card pointer you actually want to free and set to NULL
+void freeCard(Card** p) {
+    free(*p);
+    (*p)=NULL;
+}
 
 //function to print a card
 void printCard(Card* c);
