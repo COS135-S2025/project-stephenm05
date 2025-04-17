@@ -10,6 +10,9 @@ typedef struct Deck{
 //function to create a Deck struct
 Deck* makeDeck();
 
+//function to free the Deck struct and all its associated Card structs
+void freeDeck(Deck** p);
+
 //function to shuffle the Deck
 void shuffleDeck(Deck* d);
 
