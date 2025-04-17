@@ -73,6 +73,8 @@ int main(int argc, char** argv){
     
 
     //create and shuffle a Deck
+    Deck* deck = makeDeck();
+    shuffleDeck(deck);
 
     //main gameloop iterates through Players and then questions
 
