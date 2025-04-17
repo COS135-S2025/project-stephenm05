@@ -18,5 +18,8 @@ void freeDeck(Deck** p);
 //function to shuffle the Deck
 void shuffleDeck(Deck* d);
 
+//function to print the Deck, mostly for debugging
+void printDeck(Deck* d);
+
 #endif
 

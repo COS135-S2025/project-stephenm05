@@ -67,3 +67,11 @@ int shuffleDeck(Deck* d) {
     (d->timesShuffled)++;
     return (d->timesShuffled);
 }
+
+//function to print the Deck, mostly for debugging
+void printDeck(Deck* d) {
+    for(int i=0;i<DECK_SIZE;i++) {
+        printCard((d->cardOrder)[i]);
+        printf("\n");
+    }
+}
