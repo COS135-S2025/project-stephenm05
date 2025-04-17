@@ -165,7 +165,22 @@ int main(int argc, char** argv){
         //prepare for the next iteration
         //if we just dealt the last player, increment qType to go to the next question, wrapping as needed
         if(playerPointer==lastPlayer) {
-            (qType<3) ? (qType++):(qType=0); }
+            qType++;
+            if(qType>=4) {
+                //wrapping code
+                qType=0;
+                //code to check if the players want to stop at the end of each group of questions
+                printf("\nWould you like to keep playing (1) or stop (0)?\n");
+                fgets(line,MAX_LINE_LENGTH,stdin);
+                //if the players choose to stop, break the while loop condition so the game ends
+                if(atoi(line)==0) {
+                    drawPointer=(deck->cardOrder)+DECK_SIZE-1;
+                    printf("Stopping game...\n\n");
+                } else {
+                    printf("Play will continue!\n\n");
+                }
+            }
+        }
         
         //go to the next Player
         playerPointer = playerPointer->nextPlayer;
@@ -181,6 +196,7 @@ int main(int argc, char** argv){
         playerPointer = playerPointer->nextPlayer;
     }
     fclose(file);
+    printf("The players' scores have been recorded in %s.\n\n", argv[1]);
 
     //free everything
     for(int i=0;i<playerCount;i++) {
@@ -188,6 +204,8 @@ int main(int argc, char** argv){
         playerPointer = freePlayer(&playerPointer);
     }
     freeDeck(&deck);
+
+    printf("Ending the program. Thanks for playing!");
 
     return 0;
 }
