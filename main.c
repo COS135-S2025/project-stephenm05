@@ -83,7 +83,39 @@ int main(int argc, char** argv){
     shuffleDeck(deck);
     printf("\n*shuffling noises*\n\n");
 
+    printf("To play this game, guess the answer to the question asked about your next card, inputting your answer using the number specified.\n\n");
+
     //main gameloop iterates through Players and then questions
+    //set up pointer to iterate through the deck
+    Card** drawPointer = (deck->cardOrder);
+    //vars tracking which question to ask and if the player was right
+    int qType = 0;
+    int isRight = 0;
+    //runs while there are undrawn cards in the deck
+    while(drawPointer<((deck->cardOrder)+DECK_SIZE)) {
+        //ask the appropriate question to the Player pointed to by playerPointer
+        switch(qType) {
+            //red or black?
+            case 0:
+                printf("%s, red (0) or black (1)?\n",(playerPointer->name));
+                fgets(line,MAX_LINE_LENGTH,stdin);
+                //suit % 2 is 0 if the suit is red or 1 if it's black
+                if(atoi(line)==((nextCard->suit)%2)) {
+                    isRight=1;
+                } else {
+                    isRight=0; }
+                break;
+            //higher or lower?
+            case 1:
+                break;
+            //inside or outside?
+            case 2:
+                break;
+            //suit?
+            case 3:
+                break;
+        }
+    }
 
     //write final scores to original file once the Deck is all the way cycled through
     
