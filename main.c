@@ -70,6 +70,9 @@ int main(int argc, char** argv){
     //this loop concludes with playerPointer pointing to the Player who will go first
     //update lastPlayer->nextPlayer so the first Player goes after lastPlayer for a complete turn loop
     (lastPlayer->nextPlayer)=playerPointer;
+
+    //close the file
+    fclose(file);
     
     printf("Order of play is as follows:\n");
     for(int i=1;i<=playerCount;i++) {
@@ -170,10 +173,14 @@ int main(int argc, char** argv){
     }
 
     //write final scores to original file once the Deck is all the way cycled through
-    
-
-    //close the file
+    file = fopen(argv[1],"w");
+    for(int i=0;i<playerCount;i++) {
+        fprintf(file,"%s: -%d\n",playerPointer->name,playerPointer->wrongGuesses);
+        playerPointer = playerPointer->nextPlayer;
+    }
     fclose(file);
+
+    //free everything
 
     return 0;
 }
