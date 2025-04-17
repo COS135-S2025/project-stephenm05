@@ -12,7 +12,7 @@
 FILE* readFile(char *filename){
     FILE* file = fopen(filename, "r");
     if (file == NULL){
-        printf("Error opening file\n");
+        printf("ERROR: Specified file does not exist\n");
         exit(1);
     }
     return file;
@@ -48,7 +48,28 @@ int main(int argc, char** argv){
     FILE* file = read_file(argv[1]);
 
     //create Player structs based on input file
+    //buffer to store lines from input file
     char line[MAX_LINE_LENGTH];
+    //set line to the first line in the input file, terminating the program if there is no first line bc then we can't make the Player structs we need
+    if(fgets(line,MAX_LINE_LENGTH,file)==NULL) {
+        printf("ERROR: The specified file is empty");
+        return 2;
+    }
+    trimSpaces(line);
+    //create the first Player and record it's pointer. the first Player we create will be the last to go for coding simplicity
+    Player* lastPlayer = makeFirstPlayer(line);
+    Player* playerPointer=lastPlayer;
+    int playerCount=1;
+    //once we have our first Player we can loop through the rest using the regular makePlayer() function to get most of them linked together
+    while(fgets(line,MAX_LINE_LENGTH,file)!=NULL) {
+        trimSpaces(line);
+        //creates a new Player struct from the current name who will play before the last Player we created
+        playerPointer = makePlayer(line,playerPointer);
+        playerCount++;
+    }
+    //this loop concludes with playerPointer pointing to the Player who will go first
+    //update lastPlayer->nextPlayer so the first Player goes after lastPlayer for a complete turn loop
+    (lastPlayer->nextPlayer)=playerPointer;
     
 
     //create and shuffle a Deck
