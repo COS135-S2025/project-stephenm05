@@ -93,6 +93,14 @@ int main(int argc, char** argv){
     int isRight = 0;
     //runs while there are undrawn cards in the deck
     while(drawPointer<((deck->cardOrder)+DECK_SIZE)) {
+        //vars to reduce the amount of member accessing and dereferencing needed
+        Card* nextCard = *drawPointer;
+        Card** draws = (playerPointer->draws);
+        int drawCount = (playerPointer->drawCount);
+        (drawCount > 0) ? (int lcr = draws[drawCount-1]->rank):; //last card's rank, only initialized if there is a last card
+        (drawCount > 1) ? (int tcbr = draws[drawCount-2]->rank):; //two cards back's rank, only initialized if there are two previous cards
+        int lowBorder, highBorder;
+        (drawCount > 1) ? ((lcr>tcbr) ? (highBorder=lcr;lowBorder=tcbr):(highBorder=tcbr;lowBorder=lcr)):;
         //ask the appropriate question to the Player pointed to by playerPointer
         switch(qType) {
             //red or black?
