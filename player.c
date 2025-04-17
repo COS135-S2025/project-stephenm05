@@ -39,7 +39,22 @@ Player* makeFirstPlayer(char* n) {
 
 //function to free a Player struct
 //takes a pointer to the Player pointer you actually want to free and set to NULL
-void freePlayer(Player** p);
+void freePlayer(Player** dp) {
+    //creates a variable of the actual Player pointer for ease of use
+    Player* p = *dp;
+    //all the actual Card structs will be freed when the main deck is freed, so I don't need to do that here
+    //this (maybe unneccessarily) sets all of the Card pointers in p->draws to NULL, and then frees p->draws and sets its root pointer to NULL
+    for(int i=0;i<(p->drawCount);i++) {
+        (p->draws)[i]=NULL;
+    }
+    free(p->draws);
+    (p->draws)=NULL;
+    //finally, free the Player pointer and set it to NULL
+    free(*dp);
+    (*dp)=NULL;
+
+    return;
+}
 
 //function to add the Card pointed to by c to p->draws, expanding the latter as needed
 //returns 0 if no expansion was needed and 1 otherwise
@@ -51,7 +66,9 @@ int drawCard(Player* p,Card* c) {
         (p->draws)=realloc((p->draws),sizeof(Card*)*(p->maxDraws));
         wasExpanded=1;
     }
-    //set the earliest unused space in p->draws equal to the provided Card pointer
+    //set the earliest unused space in p->draws equal to the provided Card pointer and increment p->drawCount
     (p->draws)[p->drawCount]=c;
+    (p->drawCount)++;
+
     return wasExpanded;
 }
