@@ -8,7 +8,8 @@ typedef struct Player Player;
 
 struct Player{
     char name[MAX_LINE_LENGTH];
-    struct Card* draws;
+    //pointer to an array of Card pointers
+    struct Card** draws;
     int wrongGuesses;
     Player* nextPlayer;
     int drawCount;
