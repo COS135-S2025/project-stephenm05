@@ -18,24 +18,27 @@ FILE* readFile(char *filename){
     return file;
 }
 
-//function to remove trailing whitespaces from the provided string
-void trimSpaces(char* word) {
-    //char pointer looking at the char in word immediately preceeding the null terminator
-    char* end = word+(strlen(word)-1);
+//function to remove whitespaces from the provided string and avoid including the score if one is already there
+void parseName(char* fLine) {
+    //basically copies fLine but stops before including the first ':' char, which generally indicates a score from a previous game
+    //if there's no score the token should just be the whole line, in which case this function works exactly as it did before
+    char* nameTok = strtok(fLine,":");
+    //char pointer looking at the char in nameTok immediately preceeding the null terminator
+    char* end = nameTok+(strlen(nameTok)-1);
     //keep moving end back until it's on a non-space char
     while(isspace(*end)) {
         end--;
     }
-    //then terminate word on the char after end
+    //then terminate nameTok on the char after end
     *(end+1)='\0';
 
     //this while loop is essentially the same as above but reversed
-    char* start=word;
+    char* start=nameTok;
     while(isspace(*start)) {
         start++;
     }
-    //and instead of ending the word, once we find where the actual chars start we just copy the string starting there into word
-    strcpy(word,start);
+    //and instead of ending the nameTok, once we find where the actual chars start we just copy the string starting there into nameTok
+    strcpy(nameTok,start);
     return;
 }
 
@@ -55,14 +58,14 @@ int main(int argc, char** argv){
         printf("ERROR: The specified file is empty");
         return 2;
     }
-    trimSpaces(line);
+    parseName(line);
     //create the first Player and record it's pointer. the first Player we create will be the last to go for coding simplicity
     Player* lastPlayer = makeFirstPlayer(line);
     Player* playerPointer=lastPlayer;
     int playerCount=1;
     //once we have our first Player we can loop through the rest using the regular makePlayer() function to get most of them linked together
     while(fgets(line,MAX_LINE_LENGTH,file)!=NULL) {
-        trimSpaces(line);
+        parseName(line);
         //creates a new Player struct from the current name who will play before the last Player we created
         playerPointer = makePlayer(line,playerPointer);
         playerCount++;
@@ -205,7 +208,7 @@ int main(int argc, char** argv){
     }
     freeDeck(&deck);
 
-    printf("Ending the program. Thanks for playing!");
+    printf("Thanks for playing!\n");
 
     return 0;
 }
