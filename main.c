@@ -45,7 +45,7 @@ int main(int argc, char** argv){
         return 1;
     }
 
-    FILE* file = read_file(argv[1]);
+    FILE* file = readFile(argv[1]);
 
     //create Player structs based on input file
     //buffer to store lines from input file
@@ -71,10 +71,17 @@ int main(int argc, char** argv){
     //update lastPlayer->nextPlayer so the first Player goes after lastPlayer for a complete turn loop
     (lastPlayer->nextPlayer)=playerPointer;
     
+    printf("Order of play is as follows:\n");
+    for(int i=1;i<=playerCount;i++) {
+        printf("%d. %s\n",i,(playerPointer->name));
+        playerPointer = (playerPointer->nextPlayer);
+    }
+    
 
     //create and shuffle a Deck
     Deck* deck = makeDeck();
     shuffleDeck(deck);
+    printf("\n*shuffling noises*\n\n");
 
     //main gameloop iterates through Players and then questions
 
