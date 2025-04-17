@@ -19,11 +19,28 @@ typedef enum Rank{
     KING
 } Rank;
 
+//enum representing the possible suits as numerical values
+typedef enum Suit{
+    CLUBS=1,
+    DIAMONDS,
+    SPADES,
+    HEARTS
+} Suit;
+
 typedef struct Card{
-    char name[10];
-    char suit[10];
+    char name[20];
+    Suit suit;
     Rank rank;
 } Card;
+
+//function to create a Card struct
+Card* makeCard(int s,int r);
+
+//function to free a Card struct
+void freeCard(Card** p);
+
+//function to print a card
+void printCard(Card* c);
 
 #endif
 
