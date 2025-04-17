@@ -27,7 +27,19 @@ Deck* makeDeck() {
 }
 
 //function to free the Deck struct and all its associated Card structs
-void freeDeck(Deck** p);
+void freeDeck(Deck** p) {
+    //create a variable for the actual Deck pointer for ease of use
+    Deck* d = *p;
+    //iterate through d->cardOrder and free all of the Card structs referenced
+    for(int i=0;i<DECK_SIZE;i++) {
+        freeCard(&((d->cardOrder)[i]));
+    }
+    //free the Deck pointer itself and set it to NULL
+    free(*p);
+    (*p)=NULL;
+
+    return;
+}
 
 //function to shuffle the Deck
 void shuffleDeck(Deck* d);
