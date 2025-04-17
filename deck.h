@@ -7,5 +7,11 @@ typedef struct Deck{
     int timesShuffled;
 } Deck;
 
+//function to create a Deck struct
+Deck* makeDeck();
+
+//function to shuffle the Deck
+void shuffleDeck(Deck* d);
+
 #endif
 
