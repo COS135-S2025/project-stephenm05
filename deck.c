@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "deck.h"
 #include "card.h"
 
@@ -42,4 +43,27 @@ void freeDeck(Deck** p) {
 }
 
 //function to shuffle the Deck
-void shuffleDeck(Deck* d);
+//this essentially works by dividing the deck into two sections, shuffled and unshuffled, with the shuffled cards at the end
+//each iteration of the while loop, a random card is picked from the unshuffled section and swapped with the last card in that section, bringing the shuffled section one item closer to reaching the beginning of the list
+int shuffleDeck(Deck* d) {
+    //seed needed to generate a random number bc C is weird, just basing it on the time bc security doesn't matter here
+    unsigned int seed = time(NULL);
+    //tracks the index of the last card in the unshuffled section, beginning at the end of d->cardOrder bc initially none of them are shuffled
+    int lastUnshuffledIndex = DECK_SIZE-1;
+    //temp variable for swapping d->cardOrder's Card pointers around
+    Card* temp;
+    //main shuffling loop
+    while(lastUnshuffledIndex>0) {
+        //picks a random index between 0 and lastUnshuffledIndex
+        int randNum = rand_r(&seed) % (lastUnshuffledIndex+1);
+        //swaps the unshuffled card chosen with the last unshuffled card
+        temp=(d->cardOrder)[randNum];
+        (d->cardOrder)[randNum]=(d->cardOrder)[lastUnshuffledIndex];
+        (d->cardOrder)[lastUnshuffledIndex]=temp;
+        //reduces the size of the unshuffled section
+        lastUnshuffledIndex--;
+    }
+    //increment and return d->timesShuffled
+    (d->timesShuffled)++;
+    return (d->timesShuffled);
+}
