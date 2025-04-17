@@ -42,4 +42,16 @@ Player* makeFirstPlayer(char* n) {
 void freePlayer(Player** p);
 
 //function to add the Card pointed to by c to p->draws, expanding the latter as needed
-int drawCard(Player* p,Card* c);
+//returns 0 if no expansion was needed and 1 otherwise
+int drawCard(Player* p,Card* c) {
+    int wasExpanded=0;
+    //expand p->draws if needed
+    if((p->drawCount)>=(p->maxDraws)) {
+        (p->maxDraws)++;
+        (p->draws)=realloc((p->draws),sizeof(Card*)*(p->maxDraws));
+        wasExpanded=1;
+    }
+    //set the earliest unused space in p->draws equal to the provided Card pointer
+    (p->draws)[p->drawCount]=c;
+    return wasExpanded;
+}
