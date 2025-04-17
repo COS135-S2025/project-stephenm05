@@ -103,7 +103,7 @@ int main(int argc, char** argv){
         int lowBorder, highBorder;
         (drawCount > 1) ? ((lcr>tcbr) ? (highBorder=lcr;lowBorder=tcbr):(highBorder=tcbr;lowBorder=lcr)):;
 
-        
+
         //ask the appropriate question to the Player pointed to by playerPointer
         switch(qType) {
             //red or black?
@@ -151,6 +151,22 @@ int main(int argc, char** argv){
                 } else {isRight=0;}
                 break;
         }
+
+        //once the question has been asked and answered, add nextCard to the Player's draws, tell them whether they were right or wrong, and adjust their score as needed
+        drawCard(playerPointer,nextCard);
+        printf("*%s draws the ");printCard(nextCard);printf("*\n");
+        (isRight==1) ? (printf("Congrats, you were right!\n\n")): (printf("Sorry, you were incorrect.\n\n");(playerPointer->wrongGuesses)++);
+
+        //prepare for the next iteration
+        //if we just dealt the last player, increment qType to go to the next question, wrapping as needed
+        if(playerPointer==lastPlayer) {
+            (qType<3) ? (qType++):(qType=0); }
+        
+        //go to the next Player
+        playerPointer = playerPointer->nextPlayer;
+
+        //increment drawPointer to go to the next Card
+        drawPointer++;
     }
 
     //write final scores to original file once the Deck is all the way cycled through
