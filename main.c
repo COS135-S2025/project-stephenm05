@@ -181,6 +181,11 @@ int main(int argc, char** argv){
     fclose(file);
 
     //free everything
+    for(int i=0;i<playerCount;i++) {
+        //frees the Player the pointer is currently looking at, then sets the pointer to the next Player
+        playerPointer = freePlayer(playerPointer);
+    }
+    freeDeck(deck);
 
     return 0;
 }
