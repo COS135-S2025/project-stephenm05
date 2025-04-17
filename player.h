@@ -27,7 +27,7 @@ Player* makeFirstPlayer(char* n);
 void freePlayer(Player** p);
 
 //function to add the Card pointed to by c to p->draws, expanding the latter as needed
-int drawCard(Player* p,Card* c);
+int drawCard(Player* p,struct Card* c);
 
 #endif
 
