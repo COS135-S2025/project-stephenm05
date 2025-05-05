@@ -6,7 +6,7 @@
 
 //define functions declared in header file here
 
-//function to create a Card struct
+//function to create a Card struct and return its pointer, with s and r representing the suit and rank
 Card* makeCard(int s,int r) {
     //reserve space for the Card struct
     Card* c = malloc(sizeof(Card));

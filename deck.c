@@ -8,7 +8,7 @@
 
 //define functions declared in header file here
 
-//function to create a Deck struct
+//function to create a Deck struct and return its pointer
 Deck* makeDeck() {
     //allocate space for the Deck struct
     Deck* d = malloc(sizeof(Deck));
@@ -27,7 +27,7 @@ Deck* makeDeck() {
     return d;
 }
 
-//function to free the Deck struct and all its associated Card structs
+//function to free the Deck struct pointed to by *p and all its associated Card structs
 void freeDeck(Deck** p) {
     //create a variable for the actual Deck pointer for ease of use
     Deck* d = *p;

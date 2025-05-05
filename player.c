@@ -7,7 +7,7 @@
 
 //define functions declared in header file here
 
-//function to make a Player
+//function to make a Player from the name string and a pointer to the next Player in the rotation
 Player* makePlayer(char* n,Player* np) {
     //allocate space for the Player struct
     Player* p = malloc(sizeof(Player));
@@ -43,6 +43,7 @@ Player* makeFirstPlayer(char* n) {
 
 //function to free a Player struct
 //takes a pointer to the Player pointer you actually want to free and set to NULL
+//returns a pointer to the next Player in the rotation so it can be freed as well
 Player* freePlayer(Player** dp) {
     //creates a variable of the actual Player pointer for ease of use
     Player* p = *dp;
